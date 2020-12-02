@@ -1,0 +1,17 @@
+{
+  "env": {
+    "MONGO_USER": "kristiyan",
+    "MONGO_PASSWORD": "yrppZIuYBL82FXUn",
+    "MONGO_DATABASE": "fullStackTwitterClone",
+    "SECRET": "SomeSecret1012",
+    "EMAIL_SECRET": "SomeEMailSecret",
+    "SENDGRID_API_KEY": "",
+    "EMAIL": "bestestkris@gmail.com",
+    "EMAIL_PASSWORD": "kedebe357a",
+    "REDIS_URL": "",
+    "CLIENT_URL": "localhost:3000",
+    "PORT": 8090,
+    "SERVER_URL": "http://localhost:8090",
+    "ALLOW_IMAGES": false
+  }
+}
