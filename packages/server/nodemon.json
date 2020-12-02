@@ -2,7 +2,7 @@
   "env": {
     "MONGO_USER": "kristiyan",
     "MONGO_PASSWORD": "yrppZIuYBL82FXUn",
-    "MONGO_DATABASE": "fullStackTwitterClone",
+    "MONGO_DATABASE": "fullStackCodetalker",
     "SECRET": "SomeSecret1012",
     "EMAIL_SECRET": "SomeEMailSecret",
     "SENDGRID_API_KEY": "",

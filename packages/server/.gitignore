@@ -1,0 +1,9 @@
+/node_modules
+nodemon.json
+dist
+.env
+/images/*
+error.log
+combined.log
+server.cert
+server.key
