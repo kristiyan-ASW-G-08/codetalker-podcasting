@@ -22,3 +22,11 @@ export const confirmPassword = yup
   .min(12)
   .oneOf([yup.ref('password')], "Passwords don't match")
   .required();
+export const title = yup
+  .string()
+  .min(1)
+  .required();
+export const website = yup
+  .string()
+  .url()
+  .notRequired();

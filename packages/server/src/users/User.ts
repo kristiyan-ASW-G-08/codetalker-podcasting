@@ -13,8 +13,6 @@ const UserSchema: Schema = new Schema({
   },
   email: { required: true, type: String, minlength: 3, unique: true },
   password: { required: true, type: String, minlength: 12 },
-  website: { required: false, type: String, minlength: 3 },
-  cover: { type: String },
   date: {
     type: Date,
     default: Date.now,

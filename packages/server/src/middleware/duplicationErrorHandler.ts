@@ -9,6 +9,7 @@ const duplicationErrorHandler = (
   next: NextFunction,
 ): void => {
   if (duplicationErrors.errors) {
+    console.log(duplicationErrors.errors);
     const validationErrors: ValidationError[] = Object.values(
       duplicationErrors.errors,
     ).map(

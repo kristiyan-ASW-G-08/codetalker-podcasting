@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`userRoutes post /users/user/tokens should throw an error with a status of 400: BadRequest when the req body doesn't pass validation 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "message": "email is a required field",
+      "path": "email",
+    },
+    Object {
+      "message": "password is a required field",
+      "path": "password",
+    },
+  ],
+  "message": "Request has wrong format",
+}
+`;
+
+exports[`userRoutes post /users/user/tokens should throw an error with a status of 400: BadRequest when the req body doesn't pass validation 2`] = `
+Object {
+  "data": Array [
+    Object {
+      "message": "email is a required field",
+      "path": "email",
+    },
+    Object {
+      "message": "password is a required field",
+      "path": "password",
+    },
+  ],
+  "message": "Request has wrong format",
+}
+`;
+
+exports[`userRoutes post /users/user/tokens should throw an error with a status of 400: BadRequest when the req body doesn't pass validation 3`] = `
+Object {
+  "data": Array [
+    Object {
+      "message": "email is a required field",
+      "path": "email",
+    },
+    Object {
+      "message": "password is a required field",
+      "path": "password",
+    },
+  ],
+  "message": "Request has wrong format",
+}
+`;
+
+exports[`userRoutes post /users/user/tokens should throw an error with a status of 401: Unauthorized when the password doesn't match 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "message": "Wrong password. Try again",
+      "path": "password",
+    },
+  ],
+  "message": "Authentication credentials not valid or missing",
+}
+`;

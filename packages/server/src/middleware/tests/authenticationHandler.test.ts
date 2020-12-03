@@ -67,6 +67,24 @@ describe('authenticationHandler', (): void => {
       authenticationHandler(reqMock, resMock, nextMock),
     ).toThrowErrorMatchingSnapshot();
   });
+  it('should throw an error with a status of 401: Unauthorized when the authorization header is invalid', async (): Promise<
+    void
+  > => {
+    expect.assertions(1);
+    const nextMock = jest.fn();
+    const reqMock = httpMocks.createRequest({
+      method: 'POST',
+      url: '/',
+      headers: {
+        Authorization: `Bearer asdasdasdasdadsda`,
+      },
+    });
+    const resMock = httpMocks.createResponse();
+
+    expect((): void =>
+      authenticationHandler(reqMock, resMock, nextMock),
+    ).toThrowErrorMatchingSnapshot();
+  });
   it("should throw an error with a status of 401: Unauthorized when the decoded jwt token doesn't contain a user id ", async (): Promise<
     void
   > => {

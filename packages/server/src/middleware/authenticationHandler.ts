@@ -15,8 +15,14 @@ const authenticationHandler = (
     throw error;
   }
   const token = authHeader.split(' ')[1];
-  // @ts-ignore
-  const { userId } = verify(token, SECRET);
+
+  let userId = '';
+  try {
+    // @ts-ignore
+    ({ userId } = verify(token, SECRET));
+  } catch (err) {
+    throw error;
+  }
   if (!userId) {
     throw error;
   }

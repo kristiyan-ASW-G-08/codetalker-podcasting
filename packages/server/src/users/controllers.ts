@@ -50,18 +50,15 @@ export const logIn = async (
       SECRET,
       { expiresIn: '1h' },
     );
-    const { username, date, _id, website, cover } = user;
+    const { username, date, _id } = user;
     res.status(200).json({
       data: {
         token,
         user: {
-          website,
           username,
-
           email,
           date,
           _id,
-          cover,
         },
       },
     });

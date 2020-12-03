@@ -5,7 +5,7 @@
       "@src/*": ["src/*"],
       "@episodes/*": ["src/episodes/*"],
       "@podcasts/*": ["src/podcasts/*"],
-       "@customTypes/*": ["src/types/*"],
+      "@customTypes/*": ["src/types/*"],
       "@utilities/*": ["src/utilities/*"],
       "@customMiddleware/*": ["src/middleware/*"],
       "@users/*": ["src/users/*"]
@@ -23,6 +23,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "preserveSymlinks": true,
     "typeRoots": ["./node_modules/@types", "./types"]
   },
   "include": ["./src", "./types"]
