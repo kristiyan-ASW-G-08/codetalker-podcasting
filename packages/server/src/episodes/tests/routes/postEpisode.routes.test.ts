@@ -5,47 +5,53 @@ import jwt from 'jsonwebtoken';
 import app from 'src/app';
 import User from '@users/User';
 import Podcast from '@podcasts/Podcast';
+import Episode from '@episodes/Episode';
 import connectToDB from '@utilities/connectToDB';
 import UserType from '@customTypes/User';
 import uploadToCloudinary from '@utilities/uploadToCloudinary';
 import deleteFromCloudinary from '@utilities/deleteFromCloudinary';
+import { isRegExp } from 'util';
 
 jest.mock('@utilities/uploadToCloudinary');
 
 jest.mock('@utilities/deleteFromCloudinary');
 
-describe('post /podcasts', () => {
+describe('episode routes', () => {
   const port = process.env.PORT || 8080;
   const { MONGO_USER, MONGO_PASSWORD, MONGO_DATABASE } = process.env;
   const mongoURI = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@cluster0-zmcyw.mongodb.net/${MONGO_DATABASE}?retryWrites=true`;
+
   const username = 'username';
   const email = 'testmail@mail.com';
   const password = 'testPassword';
   const website = 'username';
   const title = 'testUserHandle';
+  const description = 'someDescription';
   const secret = process.env.SECRET;
   let testUser: UserType;
   let token: string;
+  let podcastId: string;
   beforeAll(async () => {
     await mongoose.disconnect();
     await connectToDB(mongoURI);
     app.listen(port);
-    // @ts-ignore
+
     await User.deleteMany({}).exec();
-    // @ts-ignore
+    await Episode.deleteMany({}).exec();
     await Podcast.deleteMany({}).exec();
   });
   beforeEach(async () => {
-    // @ts-ignore
     await User.deleteMany({}).exec();
-    // @ts-ignore
+    await Episode.deleteMany({}).exec();
     await Podcast.deleteMany({}).exec();
-    testUser = new User({
+
+    testUser = await new User({
       username,
       email,
       password,
-    });
-    await testUser.save();
+    }).save();
+    const podcast = await new Podcast({ title, user: testUser._id }).save();
+    podcastId = podcast._id.toString();
     token = jwt.sign(
       {
         userId: testUser._id,
@@ -55,52 +61,47 @@ describe('post /podcasts', () => {
     );
   });
   afterEach(async () => {
-    // @ts-ignore
     await User.deleteMany({}).exec();
-    // @ts-ignore
+    await Episode.deleteMany({}).exec();
+
     await Podcast.deleteMany({}).exec();
   });
   afterAll(async () => {
     await mongoose.disconnect();
-    // @ts-ignore
+    await Episode.deleteMany({}).exec();
     await User.deleteMany({}).exec();
-    // @ts-ignore
+
     await Podcast.deleteMany({}).exec();
   });
 
-  it('should return 201 status when the podcast is created successfully', async () => {
+  it('should return status 201 when the episode is create successfully', async () => {
     expect.assertions(1);
     const response = await request(app)
-      .post('/podcasts')
+      .post(`/podcasts/${podcastId}/episodes`)
       .send({
         title,
+        description,
       })
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(201);
   });
-  it('should return 400:BadRequest when the request has wrong format', async () => {
+  it('should return 400:BadRequest when the request has wrong forma', async () => {
     expect.assertions(1);
     const response = await request(app)
-      .post('/podcasts')
-      .send({})
+      .post(`/podcasts/${podcastId}/episodes`)
+      .send({
+        title,
+      })
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(400);
   });
-  it(`should return 401:Unauthorized when the bearer token doesn't exist`, async () => {
+  it('should return 401:BadRequest when the request has wrong forma', async () => {
     expect.assertions(1);
     const response = await request(app)
       .post('/podcasts')
       .send({ title });
-    expect(response.status).toBe(401);
-  });
-  it(`should return 401:Unauthorized when the bearer token is not valid`, async () => {
-    expect.assertions(1);
-    const response = await request(app)
-      .post('/podcasts')
-      .send({ title })
-      .set('Authorization', `Bearer ${'asdasdadsadasdasdads'}`);
     expect(response.status).toBe(401);
   });
 });

@@ -19,7 +19,6 @@ export const postPodcast = async (
   try {
     const podcast = new Podcast({
       title,
-
       user: userId,
     });
     if (file) {
@@ -79,11 +78,11 @@ export const getPodcast = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const populatedPodcast = await (await getPodcastById(podcastId))
+    const podcast = await (await getPodcastById(podcastId))
       .populate([{ path: 'user', select: 'username' }])
       .execPopulate();
 
-    res.status(200).json({ data: { podcast: populatedPodcast } });
+    res.status(200).json({ data: { podcast } });
   } catch (err) {
     passErrorToNext(err, next);
   }

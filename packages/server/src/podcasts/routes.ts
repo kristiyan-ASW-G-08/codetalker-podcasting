@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import validationHandler from '@src/middleware/validationHandler';
+import validationHandler from '@customMiddleware/validationHandler';
 import validators from '@cdtr/common/source/schemaValidators/validators';
 import {
   postPodcast,
@@ -8,7 +8,7 @@ import {
   deletePodcast,
   getPodcast,
 } from '@podcasts/controllers';
-import authenticationHandler from '@src/middleware/authenticationHandler';
+import authenticationHandler from '@customMiddleware/authenticationHandler';
 
 const router = express.Router();
 

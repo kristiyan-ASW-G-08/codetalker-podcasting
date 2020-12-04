@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import userRoutes from '@users/routes';
 import podcastRoutes from '@podcasts/routes';
+import episodeRoutes from '@episodes/routes';
 import errorHandler from '@customMiddleware/errorHandler';
 
 const app: Application = express();
@@ -27,6 +28,7 @@ app.use('/images', express.static('./images'));
 
 app.use(userRoutes);
 app.use(podcastRoutes);
+app.use(episodeRoutes);
 app.use(errorHandler);
 
 export default app;

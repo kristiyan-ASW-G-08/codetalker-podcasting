@@ -25,8 +25,15 @@ export const confirmPassword = yup
 export const title = yup
   .string()
   .min(1)
+  .max(200)
   .required();
 export const website = yup
   .string()
   .url()
   .notRequired();
+
+export const description = yup
+  .string()
+  .min(10)
+  .max(1000)
+  .required();
