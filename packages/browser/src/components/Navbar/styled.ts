@@ -7,6 +7,8 @@ export const NavbarWrapper = styled('nav')`
   display: grid;
   justify-content: space-between;
   align-content: center;
+  position: fixed;
+  z-index: 2;
   grid-template-columns: repeat(2, auto);
   padding: 1rem 2rem 1rem 2rem;
   background: ${({ theme }) => theme.dark};
@@ -27,11 +29,12 @@ export const Logo = styled('div')`
     font-weight: bold;
   }
 `;
-export const LinksList = styled('ul')`
+export const Links = styled('ul')`
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-auto-flow: column;
+  align-items: center;
+  grid-gap: 2rem;
   list-style: none;
-  gap: 0.5rem;
   @media ${({ theme }) => theme.mediaQueries.mobile} {
     display: none;
   }
@@ -42,7 +45,7 @@ export const NavIcon = styled('button')`
   @media ${({ theme }) => theme.mediaQueries.mobile} {
     display: block;
     background: none;
-    color: ${({ theme }) => theme.white};
+    color: ${({ theme }) => theme.primary};
     border: none;
     font-size: 2.5rem;
   }
@@ -52,16 +55,13 @@ export const NavLinkWrapper = styled(NavLink)`
   display: block;
   border: none;
   font-weight: bold;
-  padding: 1rem 2rem;
-  border-radius: 2px;
+  font-size: 1.2rem;
   background: ${({ theme }) => theme.dark};
   color: ${({ theme }) => theme.white};
   :hover {
-    background: ${({ theme }) => theme.white};
-    color: ${({ theme }) => theme.dark};
+    color: ${({ theme }) => theme.primary};
   }
   &.active {
-    border: solid 1px ${({ theme }) => theme.white};
-    border-radius: 2px;
+    color: ${({ theme }) => theme.primary};
   }
 `;

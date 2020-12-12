@@ -5,6 +5,7 @@ const theme = {
   light: '#8899A6',
   border: '#99a8b3',
   transparent: 'transparent',
+  backdrop: 'rgba(247, 189, 2,0.5)',
 };
 
 export const buttonVariants = {

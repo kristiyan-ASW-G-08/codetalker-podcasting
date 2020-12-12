@@ -1,11 +1,10 @@
 import React from 'react';
-import { render, waitFor, screen } from '@testing-library/react';
+import { render, waitFor, screen, getByTestId } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { defaultAuthState } from 'stores/AuthStore';
 import authenticatedAuthState from 'testUtilities/authenticatedAuthState';
-import useStores from 'hooks/useStores';
-import Navbar from '.';
+import Sidebar from '.';
 import RouterThemeWrapper from 'testUtilities/RouterThemeWrapper';
 
 const history = createMemoryHistory();
@@ -14,25 +13,27 @@ jest.spyOn(history, 'push');
 
 jest.mock('hooks/useStores');
 
-const useStoresMock = useStores as jest.Mocked<any>;
-
-describe('Navbar', () => {
+describe('Sidebar', () => {
   afterEach(() => jest.resetAllMocks());
   afterAll(() => jest.restoreAllMocks());
   const resetAuthState = jest.fn();
-  it('render Navbar:logged out', async () => {
+  const toggleSidebar = jest.fn();
+  it('render Sidebar:logged out', async () => {
     expect.assertions(9);
-    useStoresMock.mockReturnValue({
-      authStore: {
-        resetAuthState,
-        authState: defaultAuthState,
+
+    const { container, queryByText } = render(
+      <Sidebar
+        resetAuthState={resetAuthState}
+        toggleSidebar={toggleSidebar}
+        user={defaultAuthState.user!}
+        isSidebarActive={false}
+      />,
+      {
+        wrapper: ({ children }) => (
+          <RouterThemeWrapper history={history}>{children}</RouterThemeWrapper>
+        ),
       },
-    });
-    const { container, queryByText } = render(<Navbar />, {
-      wrapper: ({ children }) => (
-        <RouterThemeWrapper history={history}>{children}</RouterThemeWrapper>
-      ),
-    });
+    );
 
     const podcastsLink = screen.getByText(/Podcasts/i);
     const logInLink = screen.getByText(/Login/i);
@@ -72,32 +73,25 @@ describe('Navbar', () => {
     });
   });
 
-  it('render Navbar:logged in', () => {
-    expect.assertions(6);
-    useStoresMock.mockReturnValue({
-      authStore: {
-        resetAuthState,
-        authState: authenticatedAuthState,
+  it('render Navbar: toggle', () => {
+    expect.assertions(2);
+    const { getByTestId } = render(
+      <Sidebar
+        resetAuthState={resetAuthState}
+        toggleSidebar={toggleSidebar}
+        user={authenticatedAuthState.user}
+        isSidebarActive={false}
+      />,
+      {
+        wrapper: ({ children }) => (
+          <RouterThemeWrapper history={history}>{children}</RouterThemeWrapper>
+        ),
       },
-    });
-    const { container, queryByText } = render(<Navbar />, {
-      wrapper: ({ children }) => (
-        <RouterThemeWrapper history={history}>{children}</RouterThemeWrapper>
-      ),
-    });
-    const podcastsLink = screen.getByText(/Podcasts/i);
-    const logInLink = queryByText(/Login/i);
-    const signUpLink = queryByText(/Sign Up/i);
-    const logOutButton = screen.getByText(/Logout/i);
+    );
+    const backdrop = getByTestId('backdrop');
+    expect(backdrop).toBeInTheDocument();
+    userEvent.click(backdrop);
 
-    expect(container).toBeTruthy();
-    expect(podcastsLink).toBeInTheDocument();
-    expect(logInLink).toBeFalsy();
-    expect(signUpLink).toBeFalsy();
-    expect(logOutButton).toBeInTheDocument();
-
-    userEvent.click(logOutButton);
-
-    expect(resetAuthState).toHaveBeenCalledTimes(1);
+    expect(toggleSidebar).toHaveBeenCalledTimes(1);
   });
 });
