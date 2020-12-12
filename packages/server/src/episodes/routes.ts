@@ -1,10 +1,14 @@
 import express from 'express';
 import multer from 'multer';
 import validationHandler from '@customMiddleware/validationHandler';
-import { deleteEpisode, postEpisode } from '@episodes/controllers';
+import {
+  deleteEpisode,
+  postEpisode,
+  getEpisode,
+  patchEpisode,
+} from '@episodes/controllers';
 import authenticationHandler from '@customMiddleware/authenticationHandler';
 import validators from '@cdtr/common/source/schemaValidators/validators';
-import { getPodcast } from '@src/podcasts/controllers';
 
 const router = express.Router();
 
@@ -17,4 +21,13 @@ router.post(
 
 router.delete('/episodes/:episodeId', authenticationHandler, deleteEpisode);
 
-router.get('/episodes/:episodeId', getPodcast);
+router.get('/episodes/:episodeId', getEpisode);
+
+router.patch(
+  '/episodes/:episodeId',
+  authenticationHandler,
+  validationHandler([{ schema: validators.EpisodeValidator, target: 'body' }]),
+  patchEpisode,
+);
+
+export default router;

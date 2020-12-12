@@ -1,0 +1,91 @@
+{
+  "name": "browser",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@cdtr/common": "^1.0.307",
+    "@fortawesome/fontawesome-svg-core": "^1.2.22",
+    "@fortawesome/free-brands-svg-icons": "^5.10.2",
+    "@fortawesome/free-solid-svg-icons": "^5.10.2",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.6",
+    "axios": "^0.19.0",
+    "formik": "^1.5.8",
+    "mobx": "^5.13.0",
+    "mobx-persist": "^0.4.1",
+    "mobx-react-lite": "^1.4.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.1",
+    "styled-components": "^5.0.0",
+    "styled-normalize": "^8.0.6",
+    "web-vitals": "^0.2.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "plugin:prettier/recommended"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/react-hooks": "^2.0.1",
+    "@testing-library/user-event": "^7.0.0",
+    "@types/jest": "^26.0.15",
+    "@types/react-router": "^5.1.1",
+    "@types/react-router-dom": "^5.1.0",
+    "@types/styled-components": "^4.1.18",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "babel-plugin-require-context-hook": "^1.0.0",
+    "babel-plugin-styled-components": "^1.10.6",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-config-react-app": "^5.0.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.19.1",
+    "react-docgen-typescript-loader": "^3.2.0",
+    "react-test-renderer": "^16.9.0",
+    "stylelint": "^11.0.0",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.8.0",
+    "typescript": "^4.0.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "rules": {
+    "no-restricted-syntax": 0,
+    "no-irregular-whitespace": 0,
+    "import/no-unresolved": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-named-as-default": 0,
+    "no-underscore-dangle": 0,
+    "no-param-reassign": 0,
+    "no-case-declarations": 0,
+    "no-shadow": 0,
+    "consistent-return": 1,
+    "react/prop-types": 0,
+    "react/jsx-one-expression-per-line": 0
+  }
+}

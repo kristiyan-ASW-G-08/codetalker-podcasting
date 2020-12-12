@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import categories from '../misc/categories';
 
 export const username = yup
   .string()
@@ -37,3 +38,18 @@ export const description = yup
   .min(10)
   .max(1000)
   .required();
+export const sort = yup
+  .string()
+  .trim()
+  .oneOf(categories);
+
+export const limit = yup
+  .number()
+  .integer()
+  .min(1)
+  .max(50)
+  .integer();
+export const page = yup
+  .number()
+  .min(1)
+  .integer();

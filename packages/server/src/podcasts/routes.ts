@@ -7,8 +7,10 @@ import {
   patchPodcast,
   deletePodcast,
   getPodcast,
+  getPodcasts,
 } from '@podcasts/controllers';
 import authenticationHandler from '@customMiddleware/authenticationHandler';
+import paginationHandler from '@src/middleware/paginationHandler';
 
 const router = express.Router();
 
@@ -29,5 +31,7 @@ router.patch(
 router.delete('/podcasts/:podcastId', authenticationHandler, deletePodcast);
 
 router.get('/podcasts/:podcastId', getPodcast);
+
+router.get('/podcasts', paginationHandler, getPodcasts);
 
 export default router;

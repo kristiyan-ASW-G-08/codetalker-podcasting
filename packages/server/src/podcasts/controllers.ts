@@ -10,9 +10,12 @@ import deleteFile from '@utilities/deleteFile';
 import { getPodcastById } from '@podcasts/services';
 import deleteCloudinaryFile from '@utilities/deleteFromCloudinary';
 import isAuthorized from '@utilities/isAuthorized';
+import findDocs from '@src/utilities/findDocs';
+import PodcastType from '@customTypes/Podcast';
+import getPaginationURLs from '@src/utilities/getPaginationURLs';
 
 export const postPodcast = async (
-  { userId, body: { title, website }, file }: Request,
+  { userId, body: { title, website, category }, file }: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
@@ -20,6 +23,7 @@ export const postPodcast = async (
     const podcast = new Podcast({
       title,
       user: userId,
+      category,
     });
     if (file) {
       const { path, filename } = file;
@@ -83,6 +87,44 @@ export const getPodcast = async (
       .execPopulate();
 
     res.status(200).json({ data: { podcast } });
+  } catch (err) {
+    passErrorToNext(err, next);
+  }
+};
+
+export const getPodcasts = async (
+  { pagination }: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { page, limit, sort } = pagination;
+    console.log(page, limit, sort);
+    // const { documents, count } = await findDocs<PodcastType>({
+    //   model: Podcast,
+    //   pagination,
+    //   query: { category: sort },
+    // });
+    // const { prevPage, nextPage } = getPaginationURLs({
+    //   page,
+    //   urlExtension: 'podcasts',
+    //   count,
+    //   queries: {
+    //     limit,
+    //     sort,
+    //   },
+    // });
+
+    // res.status(200).json({
+    //   data: {
+    //     podcasts: documents,
+    //     links: {
+    //       next: nextPage,
+    //       prev: prevPage,
+    //     },
+    //   },
+    // });
+    res.sendStatus(204);
   } catch (err) {
     passErrorToNext(err, next);
   }

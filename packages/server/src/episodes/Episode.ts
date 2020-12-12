@@ -9,7 +9,6 @@ const EpisodeSchema: Schema = new Schema({
     type: String,
     minlength: 1,
     maxlength: 200,
-    unique: true,
   },
   description: {
     required: true,

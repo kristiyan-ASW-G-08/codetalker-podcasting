@@ -42,6 +42,7 @@ describe('podcastRoutes', () => {
     await Podcast.deleteMany({}).exec();
     podcast = await new Podcast({
       title,
+      category: 'News',
       user: userId,
     });
     await podcast.save();
@@ -61,7 +62,7 @@ describe('podcastRoutes', () => {
     await Podcast.deleteMany({}).exec();
   });
 
-  describe('get /podcasts/:podcastId', () => {
+  describe('get /podcasts/', () => {
     it('should return 200 and a podcast', async () => {
       expect.assertions(2);
       const response = await request(app).get(`/podcasts/${podcastId}`);
@@ -77,62 +78,5 @@ describe('podcastRoutes', () => {
       );
       expect(response.status).toBe(404);
     });
-    //     it('should return 404:Not Found status when the podcast is not found', async () => {
-    //       expect.assertions(1);
-    //       const response = await request(app)
-    //         .delete(`/podcasts/${mongoose.Types.ObjectId()}`)
-    //         .send({
-    //           title: newTitle,
-    //         })
-    //         .set('Authorization', `Bearer ${token}`);
-
-    //       expect(response.status).toBe(404);
-    //     });
-
-    //     it('should return 401:Unauthorized Request  when there is not token', async () => {
-    //       expect.assertions(1);
-
-    //       const response = await request(app)
-    //         .delete(`/podcasts/${podcastId}`)
-    //         .send({ title: newTitle });
-
-    //       expect(response.status).toBe(401);
-    //     });
-    //     it(`should return 401:Unauthorized when the bearer token is incorrect`, async () => {
-    //       expect.assertions(1);
-
-    //       const response = await request(app)
-    //         .delete(`/podcasts/${podcastId}`)
-    //         .send({ title: newTitle })
-    //         .set('Authorization', `Bearer dsfsdfsdf`);
-
-    //       expect(response.status).toBe(401);
-    //     });
-    //     it(`should return 401:Unauthorized when the bearer token doesn't exist`, async () => {
-    //       expect.assertions(1);
-    //       const response = await request(app)
-    //         .delete(`/podcasts/${podcastId}`)
-    //         .send({ title: newTitle });
-
-    //       expect(response.status).toBe(401);
-    //     });
-    //     it('should return 401:Unauthorized Request  when the token contains the id of unauthorize user', async () => {
-    //       const wrongUserToken = jwt.sign(
-    //         {
-    //           userId: mongoose.Types.ObjectId().toString(),
-    //         },
-    //         secret,
-    //         { expiresIn: '1h' },
-    //       );
-
-    //       expect.assertions(1);
-    //       expect.assertions(1);
-    //       const response = await request(app)
-    //         .delete(`/podcasts/${podcastId}`)
-    //         .send({ title: newTitle })
-    //         .set('Authorization', `Bearer ${wrongUserToken}`);
-
-    //       expect(response.status).toBe(401);
-    //     });
   });
 });

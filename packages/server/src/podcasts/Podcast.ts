@@ -2,6 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import Podcast from '@customTypes/Podcast';
 import duplicationErrorHandler from '@customMiddleware/duplicationErrorHandler';
 import uniqueValidator from 'mongoose-unique-validator';
+import categories from '@cdtr/common/source/misc/categories';
 
 const PodcastSchema: Schema = new Schema({
   title: {
@@ -17,6 +18,7 @@ const PodcastSchema: Schema = new Schema({
     required: true,
   },
   website: { required: false, type: String, minlength: 3 },
+  category: { required: true, type: String, enum: categories },
   cover: { type: String },
   date: {
     type: Date,

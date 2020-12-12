@@ -74,6 +74,7 @@ describe('post /podcasts', () => {
       .post('/podcasts')
       .send({
         title,
+        category: 'News',
       })
       .set('Authorization', `Bearer ${token}`);
 
@@ -92,14 +93,14 @@ describe('post /podcasts', () => {
     expect.assertions(1);
     const response = await request(app)
       .post('/podcasts')
-      .send({ title });
+      .send({ title, category: 'News' });
     expect(response.status).toBe(401);
   });
   it(`should return 401:Unauthorized when the bearer token is not valid`, async () => {
     expect.assertions(1);
     const response = await request(app)
       .post('/podcasts')
-      .send({ title })
+      .send({ title, category: 'News' })
       .set('Authorization', `Bearer ${'asdasdadsadasdasdads'}`);
     expect(response.status).toBe(401);
   });

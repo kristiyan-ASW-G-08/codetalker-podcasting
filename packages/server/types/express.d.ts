@@ -4,7 +4,7 @@ declare namespace Express {
     pagination: {
       limit: number;
       sort: string;
-      sortString: string;
+      sort: string;
       page: number;
     };
   }

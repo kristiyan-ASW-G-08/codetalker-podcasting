@@ -51,6 +51,7 @@ describe('podcastRoutes', () => {
     podcast = await new Podcast({
       title,
       user: userId,
+      category: 'News',
     });
     await podcast.save();
     podcastId = podcast._id;

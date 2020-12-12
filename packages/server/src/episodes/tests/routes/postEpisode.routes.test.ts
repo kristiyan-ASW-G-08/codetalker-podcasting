@@ -30,7 +30,7 @@ describe('episode routes', () => {
   const secret = process.env.SECRET;
   let testUser: UserType;
   let token: string;
-  let podcastId: string;
+  const podcastId = mongoose.Types.ObjectId();
   beforeAll(async () => {
     await mongoose.disconnect();
     await connectToDB(mongoURI);
@@ -50,8 +50,7 @@ describe('episode routes', () => {
       email,
       password,
     }).save();
-    const podcast = await new Podcast({ title, user: testUser._id }).save();
-    podcastId = podcast._id.toString();
+
     token = jwt.sign(
       {
         userId: testUser._id,
@@ -74,7 +73,7 @@ describe('episode routes', () => {
     await Podcast.deleteMany({}).exec();
   });
 
-  it('should return status 201 when the episode is create successfully', async () => {
+  it('should return status 201 when the episode is created successfully', async () => {
     expect.assertions(1);
     const response = await request(app)
       .post(`/podcasts/${podcastId}/episodes`)
@@ -86,22 +85,37 @@ describe('episode routes', () => {
 
     expect(response.status).toBe(201);
   });
-  it('should return 400:BadRequest when the request has wrong forma', async () => {
-    expect.assertions(1);
-    const response = await request(app)
-      .post(`/podcasts/${podcastId}/episodes`)
-      .send({
-        title,
-      })
-      .set('Authorization', `Bearer ${token}`);
+  // it('should return 400:BadRequest when the request has wrong forma', async () => {
+  //   expect.assertions(1);
+  //   const response = await request(app)
+  //     .post(`/podcasts/${podcastId}/episodes`)
+  //     .send({
+  //       title,
+  //     })
+  //     .set('Authorization', `Bearer ${token}`);
 
-    expect(response.status).toBe(400);
-  });
-  it('should return 401:BadRequest when the request has wrong forma', async () => {
-    expect.assertions(1);
-    const response = await request(app)
-      .post('/podcasts')
-      .send({ title });
-    expect(response.status).toBe(401);
-  });
+  //   expect(response.status).toBe(400);
+  // });
+  // it('should return 400:BadRequest when the request has wrong forma', async () => {
+  //   expect.assertions(1);
+  //   const response = await request(app)
+  //     .post('/podcasts')
+  //     .send({ title });
+  //   expect(response.status).toBe(401);
+  // });
+  // it(`should return 401:Unauthorized when the bearer token doesn't exist`, async () => {
+  //   expect.assertions(1);
+  //   const response = await request(app)
+  //     .post(`/podcasts/${podcastId}/episodes`)
+  //     .send({ title, description });
+  //   expect(response.status).toBe(401);
+  // });
+  // it(`should return 401:Unauthorized when the bearer token is not valid`, async () => {
+  //   expect.assertions(1);
+  //   const response = await request(app)
+  //     .post(`/podcasts/${podcastId}/episodes`)
+  //     .send({ title, description })
+  //     .set('Authorization', `Bearer ${'asdasdadsadasdasdads'}`);
+  //   expect(response.status).toBe(401);
+  // });
 });

@@ -17,6 +17,7 @@ describe('User', (): void => {
   const website = 'www.someadress.com';
   const cover = 'someimageAddress';
   const userId = mongoose.Types.ObjectId();
+  const category = 'News';
   beforeAll(
     async (): Promise<void> => {
       await connectToDB(mongoURI);
@@ -39,6 +40,7 @@ describe('User', (): void => {
       title,
       cover,
       website,
+      category,
       user: userId,
     };
     // @ts-ignore
@@ -51,12 +53,13 @@ describe('User', (): void => {
   it('should create a new podcast when validation is successful', async (): Promise<
     void
   > => {
-    expect.assertions(8);
+    expect.assertions(9);
     const podcast: PodcastType = new Podcast({
       title,
       cover,
       website,
       user: userId,
+      category,
     });
     await expect(podcast.save()).resolves.not.toThrowError();
     expect(duplicationErrorHandlerMock).toHaveBeenCalledTimes(1);
@@ -64,7 +67,9 @@ describe('User', (): void => {
       title,
       cover,
       website,
+      category,
     });
+    expect(podcast.category).toBe(category);
     expect(podcast.title).toBe(title);
     expect(podcast.cover).toBe(cover);
     expect(podcast.user).toBe(userId);
